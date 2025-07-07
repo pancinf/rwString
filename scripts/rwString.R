@@ -14,18 +14,20 @@ library(diffusr)
 options(scipen=999)
 set.seed(1234)
 nPerm <- 1000
-backProb <- 0.8
 
 ###
 ###
 ###External arguments
 option_list = list(
   make_option(c("-p","--pheno"), type="character", default=NULL, 
-              help="pheno.", metavar="character")
+              help="Phenotype", metavar="character"),
+
+  make_option(c("-b","--backProb"), type="numeric", default=NULL,
+              help="Restart probability", metavar="character")
 )
 opt_parser = OptionParser(option_list=option_list);
 opt = parse_args(opt_parser);
-if (is.null(opt$pheno)){
+if (is.null(opt$pheno) | is.null(opt$backProb)){
   print_help(opt_parser)
   stop("STOP. Please provide a phenotype", call.=FALSE)
 }
@@ -50,7 +52,7 @@ knownSeeds <- stringInfo$protein[stringInfo$symbol %in% seedGenes]
 knownSeeds <- sort(knownSeeds)
 baseProb <- rep(0,nrow(stringDb))
 baseProb[rownames(stringDb) %in% knownSeeds] <- 1/length(knownSeeds)
-finalTable <- data.frame(protein = rownames(stringDb),rwStringProb = random.walk(p0 = baseProb,graph = stringDb,correct.for.hubs = FALSE, r = backProb, thresh = 1e-6)$p.inf)
+finalTable <- data.frame(protein = rownames(stringDb),rwStringProb = random.walk(p0 = baseProb,graph = stringDb,correct.for.hubs = FALSE, r = opt$backProb, thresh = 1e-6)$p.inf)
 finalTable <- merge(stringInfo,finalTable, by = "protein")
 finalTable$rankRwString <- rank(x = -finalTable$rwStringProb, ties.method = "max")
 
@@ -71,7 +73,7 @@ for(u in 1:nPerm){
   usedSeedSets <- c(usedSeedSets,paste0(sort(backSeeds),collapse = ", "))
   baseProb <- rep(0,nrow(stringDb))
   baseProb[rownames(stringDb) %in% backSeeds] <- 1/length(backSeeds)
-  rwStringProbBack <- random.walk(p0 = baseProb,graph = stringDb,correct.for.hubs = FALSE,r = backProb, thresh = 1e-6)$p.inf
+  rwStringProbBack <- random.walk(p0 = baseProb,graph = stringDb,correct.for.hubs = FALSE,r = opt$backProb, thresh = 1e-6)$p.inf
   finalTable$lowerThanBackground[finalTable$rwStringProb > rwStringProbBack] <- finalTable$lowerThanBackground[finalTable$rwStringProb > rwStringProbBack] - 1
 }
 finalTable$pValueRwString <- finalTable$lowerThanBackground/nPerm
@@ -81,7 +83,7 @@ finalTable$lowerThanBackground <- NULL
 ##Write to output
 
 #rw output
-write.table(x = finalTable, file = paste0("../data/output/", opt$pheno,"_", "rwString.txt"), append = FALSE, quote = FALSE, sep = "\t", row.names = FALSE,col.names = TRUE)
+write.table(x = finalTable, file = paste0("../data/output/", opt$pheno,"_backProb",opt$backProb,"_rwString.txt"), append = FALSE, quote = FALSE, sep = "\t", row.names = FALSE,col.names = TRUE)
 
 #used seed sets
-write.table(x = usedSeedSets, file = paste0("../data/output/", opt$pheno,"_", "usedSeedSets.txt"), append = FALSE, quote = FALSE, sep = "\t", row.names = FALSE,col.names = FALSE)
+write.table(x = usedSeedSets, file = paste0("../data/output/", opt$pheno,"_backProb",opt$backProb,"_rwStringUsedSeedSets.txt"), append = FALSE, quote = FALSE, sep = "\t", row.names = FALSE,col.names = FALSE)

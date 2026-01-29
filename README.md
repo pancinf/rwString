@@ -1,5 +1,5 @@
 # General Overview
-This code conducts a random walk analysis from the diffusr R-package (https://github.com/dirmeier/diffusr) on the STRING V12 database.
+This code conducts a random walk with restart (RWR) analysis based on the diffusr R-package (https://github.com/dirmeier/diffusr) on the STRING V12 database for gene prioritization.
 
 # Required inputs:
 

@@ -15,4 +15,9 @@ Both can be downloaded from STRING DB.
 Note that "pheno" is a placeholder for your phenotype and is also used as the only required argument for the rwString.R script (so choose the same one!). Just choose a simple term here that describes the studied phenotype/disease best.
 
 # How to use
-Rscript --vanilla rwString.R --pheno myPheno --backProb 0.8
+* Rscript --vanilla rwString.R --pheno myPheno --backProb 0.8 --norm FALSE
+
+-> This version runs the RWR in permutation mode to compute p-values (slow)
+* Rscript --vanilla rwString.R --pheno myPheno --backProb 0.8 --norm TRUE
+
+-> This version runs the RWR in hub-gene-correction mode to compute probabilities (fast)

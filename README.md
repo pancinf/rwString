@@ -12,7 +12,7 @@ Both can be downloaded from STRING DB.
 ## In the "seeds" directory:
 * phenoSeeds.txt, containing a one column list of gene symbols. Those genes should represent known causal genes.
 
-Note that "pheno" is a placeholder for your phenotype and is also used as the only required argument for the rwString.R script. Just choose a simple term here that describes the studied phenotype/disease best.
+Note that "pheno" is a placeholder for your phenotype and is also used as the only required argument for the rwString.R script (so choose the same one!). Just choose a simple term here that describes the studied phenotype/disease best.
 
 # How to use
 Rscript --vanilla rwString.R --pheno myPheno --backProb 0.8

@@ -15,4 +15,4 @@ Both can be downloaded from STRING DB.
 Note that "pheno" is a placeholder for your phenotype and is also used as the only required argument for the rwString.R script. Just choose a simple term here that describes the studied phenotype/disease best.
 
 # How to use
-Rscript --vanilla rwString.R --pheno pancreatitis --backProb 0.8
+Rscript --vanilla rwString.R --pheno myPheno --backProb 0.8

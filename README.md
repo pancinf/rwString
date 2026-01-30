@@ -1,5 +1,5 @@
 # General Overview
-This code conducts a random walk with restart (RWR) analysis based on the diffusr R-package (https://github.com/dirmeier/diffusr) on the STRING V12 database for gene prioritization.
+This code conducts a random walk with restart (RWR) analysis based on the diffusr R-package (https://github.com/dirmeier/diffusr) on the STRING V12 database for gene prioritization. The underlying score is based on the tissue specificity score from Julien et al. (2012,PLoS Biol), but extended for entitiy-specific outcomes (not a tissue agnostic score).
 
 # Required inputs:
 

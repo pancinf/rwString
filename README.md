@@ -5,7 +5,7 @@ This code conducts a random walk with restart (RWR) analysis based on the diffus
 *  optparse
 *  data.table
 *  igraph
-*  diffusr
+*  diffusr (https://github.com/dirmeier/diffusr)
 
 # Required inputs:
 

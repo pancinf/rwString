@@ -2,10 +2,10 @@
 This code conducts a random walk with restart (RWR) analysis based on the diffusr R-package (https://github.com/dirmeier/diffusr) on the STRING V12 database for gene prioritization.
 
 #  Required R-packages
-*  optparse
-*  data.table
-*  igraph
-*  diffusr (https://github.com/dirmeier/diffusr)
+*  optparse v. 1.7.5
+*  data.table v. 1.15.4
+*  igraph v. 1.4.2
+*  diffusr v. 0.1.4 (https://github.com/dirmeier/diffusr)
 
 # Required inputs:
 
